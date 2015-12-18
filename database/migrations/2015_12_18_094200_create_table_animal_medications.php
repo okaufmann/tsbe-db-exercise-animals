@@ -13,9 +13,14 @@ class CreateTableAnimalMedications extends Migration
     public function up()
     {
         Schema::create('animals_medications', function (Blueprint $table) {
-            $table->integer('animal_id');
-            $table->integer('medication_id');
+            $table->integer('animal_id')->unsigned();
+            $table->integer('medication_id')->unsigned();
             $table->primary(['animal_id', 'medication_id']);
+        });
+
+        Schema::table('animals_medications', function (Blueprint $table) {
+            $table->foreign('animal_id')->references('id')->on('animals')->onDelete('CASCADE');
+            $table->foreign('medication_id')->references('id')->on('medications')->onDelete('CASCADE');
         });
     }
 

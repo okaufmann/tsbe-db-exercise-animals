@@ -18,7 +18,7 @@ class CreateTableHolders extends Migration
             $table->string('surname');
             $table->string('address');
             $table->integer('zip');
-            $table->integer('location');
+            $table->string('location');
             $table->enum('gender', ['Mr', 'Mrs']);
             $table->timestamps();
         });

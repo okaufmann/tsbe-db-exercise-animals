@@ -15,10 +15,15 @@ class CreateTableAnimals extends Migration
         Schema::create('animals', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('race_id');
+            $table->integer('holder_id')->unsigned();
             $table->string('name');
             $table->enum('sex', ['m', 'f']);
             $table->integer('birthday');
             $table->timestamps();
+        });
+
+        Schema::table('animals', function (Blueprint $table) {
+            $table->foreign('holder_id')->references('id')->on('holders');
         });
     }
 

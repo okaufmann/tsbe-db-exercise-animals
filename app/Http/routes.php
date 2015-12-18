@@ -13,3 +13,12 @@
 
 Route::get('/', 'HomeController@index');
 Route::post('/', 'HomeController@find');
+Route::resource('animal', 'AnimalController');
+Route::resource('holder', 'HolderController');
+Route::resource('medication', 'MedicationController');
+
+Route::resource('holder', 'HolderController');
+Route::resource('holder', 'HolderController');
+Route::resource('holder', 'HolderController');
+Route::resource('animal', 'AnimalController');
+Route::resource('medication', 'MedicationController');
