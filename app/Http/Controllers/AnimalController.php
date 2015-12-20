@@ -44,7 +44,11 @@ class AnimalController extends Controller
     {
         $this->validate($request, ['name' => 'required',]);
 
-        Animal::create($request->all());
+        $animal = Animal::create($request->all());
+        $medicationIds = $request->input('medication_ids');
+        if(count($medicationIds)){
+            $animal->medications()->sync($medicationIds);
+        }
 
         alert()->success('', 'Animal successfully added!');
 
@@ -72,7 +76,7 @@ class AnimalController extends Controller
      */
     public function edit($id)
     {
-        $animal = Animal::findOrFail($id);
+        $animal = Animal::with('medications')->findOrFail($id);
 
         return view('animal.edit', compact('animal'));
     }
@@ -88,6 +92,13 @@ class AnimalController extends Controller
         $this->validate($request, ['name' => 'required',]);
 
         $animal = Animal::findOrFail($id);
+        $medicationIds = $request->input('medication_ids');
+        if(count($medicationIds)){
+            $animal->medications()->sync($medicationIds);
+        }else{
+            $animal->medications()->detach();
+        }
+
         $animal->update($request->all());
 
         alert()->success('', 'Animal successfully updated!');

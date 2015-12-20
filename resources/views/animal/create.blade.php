@@ -1,5 +1,11 @@
 @extends('app')
 
+@section('footer')
+    <script type="text/javascript">
+        $(".chosen-select").chosen({no_results_text: "Oops, nothing found!"});
+    </script>
+@stop
+
 @section('content')
 
     <h1>Create New Animal</h1>
@@ -28,6 +34,14 @@
         <div class="col-sm-6">
             {!! Form::select('race_id', \App\Race::lists('name','id'), null, ['class' => 'form-control', 'required' => 'required', 'placeholder' => 'Select Race...']) !!}
             {!! $errors->first('race_id', '<p class="help-block">:message</p>') !!}
+        </div>
+    </div>
+
+    <div class="form-group {{ $errors->has('medication_ids') ? 'has-error' : ''}}">
+        {!! Form::label('medication_ids', 'Used medications: ', ['class' => 'col-sm-3 control-label']) !!}
+        <div class="col-sm-6">
+            {!! Form::select('medication_ids[]', \App\Medication::lists('name','id'), null, ['class' => 'form-control chosen-select','multiple'=> '',  'data-placeholder' => 'Select Medications...']) !!}
+            {!! $errors->first('medication_ids', '<p class="help-block">:message</p>') !!}
         </div>
     </div>
 
