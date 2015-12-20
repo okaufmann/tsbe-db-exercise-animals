@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Holder;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -22,10 +23,23 @@ class HomeController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function find()
+    public function find(Request $request)
     {
-        return view('home.index');
+        $givenname = $request->input('givenname');
+        $surname = $request->input('surname');
+
+        $request->flashOnly('givenname', 'surname');
+
+        $holderQuery = Holder::with('animals.medications')->where('givenname', 'LIKE', $givenname)->orWhere('surname',
+            'LIKE',
+            $surname);
+
+        $holderSql = $holderQuery->toSql();
+        $holder = $holderQuery->first();
+
+        return view('home.index', ['holder' => $holder, 'sql' => $holderSql]);
     }
 }

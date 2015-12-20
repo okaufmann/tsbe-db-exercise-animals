@@ -7,6 +7,7 @@
         <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
+                    <th>Gender</th>
                     <th>Givenname</th>
                     <th>Surname</th>
                     <th>Address</th>

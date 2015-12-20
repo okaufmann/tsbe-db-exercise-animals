@@ -21,4 +21,8 @@ class Holder extends Model
      */
     protected $fillable = ['givenname', 'surname', 'address', 'zip', 'location'];
 
+    public function animals()
+    {
+        return $this->hasMany(Animal::class);
+    }
 }

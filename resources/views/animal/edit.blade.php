@@ -42,7 +42,6 @@
                 </div>
             </div>
 
-
             <div class="form-group {{ $errors->has('name') ? 'has-error' : ''}}">
                 {!! Form::label('name', 'Name: ', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
@@ -63,19 +62,16 @@
             <div class="form-group {{ $errors->has('medication_ids') ? 'has-error' : ''}}">
                 {!! Form::label('medication_ids', 'Used medications: ', ['class' => 'col-sm-3 control-label']) !!}
                 <div class="col-sm-6">
-                    {!! Form::select('medication_ids[]', \App\Medication::lists('name','id'), $animal->medications->lists('id')->toArray(), ['class' => 'form-control chosen-select','multiple'=> '', 'data-placeholder' => 'Select Medications...']) !!}
+                    {!! Form::select('medication_ids[]', \App\Medication::lists('name','id'), $animal->medications ? $animal->medications->lists('id')->toArray() : [], ['class' => 'form-control chosen-select','multiple'=> '', 'data-placeholder' => 'Select Medications...']) !!}
                     {!! $errors->first('medication_ids', '<p class="help-block">:message</p>') !!}
                 </div>
             </div>
         </div>
     </div>
 
-
-
-
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-3">
-            {!! Form::submit('Update', ['class' => 'btn btn-primary form-control']) !!}
+            {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}
         </div>
     </div>
     {!! Form::close() !!}
